@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="updateprofile.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h1>Intellition</h1>
+        <ul id="sidebar-menu">
+            <li class="active" data-page="Dashboard.html">Dashboard</li>
+            <li data-page="DataEntry.html">Data Entry</li>
+            <li data-page="modeldata.html">Model Data</li>
+            <li class="has-dropdown" id="request-menu">
+                Request
+                <ul class="dropdown" id="request-dropdown" style="display: none;">
+                    <li data-page="requestdataset.html">Request Dataset</li>
+                    <li data-page="confirmation.html">Confirmation</li>
+                </ul>
+            </li>
+        </ul>
+        <div class="logout" data-page="logout.html">Logout</div>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <button class="search-button">&#128269;</button>
+            <button class="notification">&#128276;"></button>
+            <div class="admin-dropdown">
+                <span>Admin</span>
+                <button class="dropdown-button">&#x25BC;</button>
+            </div>
+        </div>
+        <div class="profile-container">
+            <h2>User Profile</h2>
+            <div class="profile-card">
+                <div class="profile-header">
+                    <img src="https://via.placeholder.com/100" alt="Profile Picture">
+                    <div class="profile-info">
+                        <h3>Anka Fayiz</h3>
+                        <p>Product Design</p>
+                        <p>Eastern European Time (EET), Cairo UTC +3</p>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="upload-photo">Upload New Photo</button>
+                        <button class="delete-photo">Delete</button>
+                    </div>
+                </div>
+                <form class="profile-form">
+                    <div class="form-group">
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name" value="Anka Fayiz">
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name" value="Rasyad">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-name">User Name</label>
+                        <input type="text" id="user-name" value="ankafr">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" value="ankafayiz78@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" value="083164878230">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="cancel">Cancel</button>
+                        <button type="submit" class="save">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuItems = document.querySelectorAll('.sidebar li:not(.has-dropdown)');
+            const dropdownMenu = document.getElementById('request-menu');
+            const requestDropdown = document.getElementById('request-dropdown');
+            const logout = document.querySelector('.logout');
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    const page = item.getAttribute('data-page');
+                    if (page) {
+                        window.location.href = page;
+                    }
+                });
+            });
+
+            dropdownMenu.addEventListener('click', function () {
+                requestDropdown.style.display = requestDropdown.style.display === 'none' ? 'block' : 'none';
+            });
+
+            document.querySelectorAll('.sidebar .has-dropdown .dropdown li').forEach(subItem => {
+                subItem.addEventListener('click', function (e) {
+                    const page = subItem.getAttribute('data-page');
+                    if (page) {
+                        window.location.href = page;
+                    }
+                    e.stopPropagation();
+                });
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!dropdownMenu.contains(e.target)) {
+                    requestDropdown.style.display = 'none';
+                }
+            });
+
+            if (logout) {
+                logout.addEventListener('click', function () {
+                    window.location.href = 'logout.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intellition Dashboard</title>
+    <link rel="stylesheet" href="ModelData.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h1>Intellition</h1>
+        <ul id="sidebar-menu">
+            <li class="active" data-page="dashboard.html">Dashboard</li>
+            <li data-page="dataentry.html">Data Entry</li>
+            <li data-page="modeldata.html">Model Data</li>
+            <li class="has-dropdown" id="request-menu">
+                Request
+                <ul class="dropdown" id="request-dropdown">
+                    <li data-page="requestdataset.html">Request Dataset</li>
+                    <li data-page="confirmation.html">Confirmation</li>
+                </ul>
+            </li>
+        </ul>
+        <div class="logout" data-page="logout.html">Logout</div>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="search">
+                <img src="search-removebg-preview.png" alt="Search" width="24" height="24">
+            </div>
+            <div class="profile-menu">
+                <div>Hai, Admin</div>
+                <img src="icon_profil-removebg-preview.png" alt="Profile">
+                <div class="profile-dropdown">
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="chart">
+                <h2>Status</h2>
+                <!-- Chart will be rendered here -->
+            </div>
+            <h2>Creation</h2>
+            <div class="creation-header">
+                <button class="new-item">New Items</button>
+                <select class="select-column">
+                    <option>Select column</option>
+                </select>
+                <input type="text" class="search-list" placeholder="Search list...">
+                <button class="add-new">Add new</button>
+            </div>
+            <table class="creation-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Problem</th>
+                        <th>Label</th>
+                        <th>Features</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>01</td>
+                        <td>Prediksi Harga Rumah</td>
+                        <td>#Harga</td>
+                        <td>Rumah</td>
+                        <td>Success</td>
+                        <td>Edit Delete</td>
+                    </tr>
+                    <tr>
+                        <td>02</td>
+                        <td>Prediksi Harga Mobil</td>
+                        <td>#Harga</td>
+                        <td>Mobil</td>
+                        <td>Success</td>
+                        <td>Edit Delete</td>
+                    </tr>
+                    <tr>
+                        <td>04</td>
+                        <td>Prediksi Cuaca</td>
+                        <td>#Cuaca</td>
+                        <td>Keadaan Cuaca</td>
+                        <td>Failed</td>
+                        <td>Edit Delete</td>
+                    </tr>
+                    <tr>
+                        <td>05</td>
+                        <td>Prediksi Calon Pembeli</td>
+                        <td>#Perilaku</td>
+                        <td>Pembelian</td>
+                        <td>On-Going</td>
+                        <td>Edit Delete</td>
+                    </tr>
+                    <tr>
+                        <td>06</td>
+                        <td>Prediksi Harga</td>
+                        <td>#Harga</td>
+                        <td>Rumah</td>
+                        <td>Success</td>
+                        <td>Edit Delete</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="dashboard.js">
+        document.addEventListener('DOMContentLoaded', function () {
+    const menuItems = document.querySelectorAll('.sidebar li:not(.has-dropdown)');
+    const dropdownMenu = document.getElementById('request-menu');
+    const requestDropdown = document.getElementById('request-dropdown');
+    const requestDataset = document.querySelector('[data-page="requestdataset.html"]');
+    const confirmPage = document.querySelector('[data-page="confirmation.html"]');
+    const logout = document.querySelector('.logout');
+
+    menuItems.forEach(item => {
+        item.addEventListener('click', function () {
+            menuItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            const page = item.getAttribute('data-page');
+            if (page) {
+                window.location.href = page;
+            }
+        });
+    });
+
+    dropdownMenu.addEventListener('click', function () {
+        requestDropdown.style.display = requestDropdown.style.display === 'none' ? 'block' : 'none';
+    });
+
+    document.querySelectorAll('.sidebar .has-dropdown .dropdown li').forEach(subItem => {
+        subItem.addEventListener('click', function (e) {
+            const page = subItem.getAttribute('data-page');
+            if (page) {
+                window.location.href = page;
+            }
+            e.stopPropagation();
+        });
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!dropdownMenu.contains(e.target)) {
+            requestDropdown.style.display = 'none';
+        }
+    });
+
+    // Direct navigation for "Request Dataset"
+    if (requestDataset) {
+        requestDataset.addEventListener('click', function () {
+            window.location.href = 'Request dataset.html';
+        });
+    }
+
+    // Direct navigation for "Confirmation"
+    if (confirmPage) {
+        confirmPage.addEventListener('click', function () {
+            window.location.href = 'Confirm.html';
+        });
+    }
+
+    if (logout) {
+        logout.addEventListener('click', function () {
+            window.location.href = 'logout.html';
+        });
+    }
+});
+    </script>
+</body>
+</html>
